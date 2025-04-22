@@ -1,0 +1,6 @@
+flask
+sqlalchemy
+requests
+numpy
+pandas
+PyJWT==1.7.1
