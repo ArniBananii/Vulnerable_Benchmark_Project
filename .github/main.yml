@@ -1,0 +1,23 @@
+name: CI – Build & Push Image Only
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Publish Image to Container Registry
+        uses: ripplr-io/docr-docker-publish@v1
+        with:
+        image_path: registry.digitalocean.com/devsecopscontainer/vuln-benchmark

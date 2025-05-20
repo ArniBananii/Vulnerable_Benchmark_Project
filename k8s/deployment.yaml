@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vuln-benchmark
+  namespace: vuln-benchmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vuln-benchmark
+  template:
+    metadata:
+      labels:
+        app: vuln-benchmark
+    spec:
+      containers:
+        - name: vuln-benchmark
+          image: registry.digitalocean.com/devsecopscontainer/vuln-benchmark:latest
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
