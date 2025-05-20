@@ -21,3 +21,23 @@ jobs:
         uses: ripplr-io/docr-docker-publish@v1
         with:
           image_path: devsecopscontainer/vuln-benchmark
+  trivy-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build Docker image to check
+        run: |
+          docker build -t devsecopscontainer/vuln-benchmark:latest .
+      - name: Run Trivy Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          version: latest
+      - name: Scan image
+        run: |
+          trivy image --severity HIGH,CRITICAL --format json --output trivy_output.json devsecopscontainer/vuln-benchmark:latest
+      - name: Upload Trivy report to AI Analyzer
+        run: |
+          curl -X POST http://139.59.206.211/analyze \
+            -H "Content-Type: application/json" \
+            --data-binary @trivy-report.json
