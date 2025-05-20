@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vuln-benchmark
+  namespace: argocd # Argo CD runs in this namespace
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ArniBananii/Vulnerable_Benchmark_Project
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vuln-benchmark
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
