@@ -31,7 +31,7 @@ jobs:
         run: |
           docker build -t devsecopscontainer/vuln-benchmark:latest .
       - name: Run Trivy Scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/setup-trivy@v0.2.0
         with:
           version: latest
       - name: Scan image
