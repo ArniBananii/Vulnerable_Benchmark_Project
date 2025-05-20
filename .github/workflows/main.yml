@@ -36,7 +36,10 @@ jobs:
           version: latest
       - name: Scan image
         run: |
-          trivy image --severity HIGH,CRITICAL --format json --output trivy_output.json registry.digitalocean.com/devsecopscontainer/vuln-benchmark:latest
+          trivy image --severity HIGH,CRITICAL \
+          --format json \
+          --output trivy_output.json \
+          devsecopscontainer/vuln-benchmark:latest
       - name: Upload Trivy report to AI Analyzer
         run: |
           curl -X POST http://139.59.206.211/analyze \
