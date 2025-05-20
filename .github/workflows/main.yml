@@ -44,4 +44,4 @@ jobs:
         run: |
           curl -X POST http://139.59.206.211/analyze \
             -H "Content-Type: application/json" \
-            --data-binary @trivy-report.json
+            --data-binary @trivy_output.json
