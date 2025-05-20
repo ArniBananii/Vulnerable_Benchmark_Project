@@ -20,4 +20,4 @@ jobs:
       - name: Publish Image to Container Registry
         uses: ripplr-io/docr-docker-publish@v1
         with:
-        image_path: registry.digitalocean.com/devsecopscontainer/vuln-benchmark
+          image_path: registry.digitalocean.com/devsecopscontainer/vuln-benchmark
