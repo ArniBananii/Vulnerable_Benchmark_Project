@@ -26,8 +26,6 @@ jobs:
             --data-raw '{
               "embeds": [{
                 "title": "📦 Dependabot PR Created",
-                "description": "**$DESCRIPTION**",
-                "url": "$URL",
                 "color": 5814783
               }]
             }'
