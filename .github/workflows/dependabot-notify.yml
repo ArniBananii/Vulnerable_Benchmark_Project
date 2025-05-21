@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      DESCRIPTION: ${{ github.event.pull_request.body }}
       URL: ${{ github.event.pull_request.html_url }}
       TITLE: ${{ github.event.pull_request.title }}
       AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -20,11 +19,6 @@ jobs:
           if [ -z "$DISCORD_WEBHOOK_URL" ]; then
             echo "DISCORD_WEBHOOK_URL is not set"; exit 1;
           fi
-
-      - name: Fallback for empty description
-        run: |
-          DESCRIPTION="${DESCRIPTION:-No description provided.}"
-          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
 
       - name: Notify Discord
         run: |
@@ -40,7 +34,7 @@ jobs:
             "embeds": [{
               "title": "📦 Dependabot PR: $TITLE",
               "url": "$URL",
-              "description": "$DESCRIPTION",
+              "description": "A new PR has been opened by Dependabot.",
               "fields": [
                 { "name": "Author", "value": "$AUTHOR", "inline": true }
               ],
