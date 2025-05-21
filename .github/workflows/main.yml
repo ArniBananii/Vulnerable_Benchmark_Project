@@ -22,6 +22,11 @@ jobs:
         with:
           image_path: devsecopscontainer/vuln-benchmark
 
+      - name: Remove old images from Container Registry
+        uses: ripplr-io/docr-image-remove@v1
+        with:
+          image_repository: devsecopscontainer/ai-analyzer
+          buffer_size: 5
   trivy-test:
     runs-on: ubuntu-latest
     steps:
