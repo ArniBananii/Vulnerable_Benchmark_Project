@@ -6,7 +6,6 @@ on:
 
 jobs:
   notify:
-    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     env:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
