@@ -11,6 +11,8 @@ jobs:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       DESCRIPTION: ${{ github.event.pull_request.body }}
       URL: ${{ github.event.pull_request.html_url }}
+      TITLE: ${{ github.event.pull_request.title }}
+      AUTHOR: ${{ github.event.pull_request.user.login }}
     steps:
       - name: Fail if webhook is missing
         run: |
@@ -21,11 +23,18 @@ jobs:
           fi
       - name: Notify Discord
         run: |
-          curl -X POST $DISCORD_WEBHOOK_URL \
-            -H "Content-Type: application/json" \
-            --data-raw '{
-              "embeds": [{
-                "title": "📦 Dependabot PR Created",
-                "color": 5814783
-              }]
-            }'
+          curl -X POST "$DISCORD_WEBHOOK_URL" \
+            --data-raw "$(cat <<EOF
+          {
+            "embeds": [{
+              "title": "📦 Dependabot PR: $TITLE",
+              "url": "$URL",
+              "fields": [
+                { "name": "Author", "value": "$AUTHOR", "inline": true },
+                { "name": "Description", "value": "$DESCRIPTION" }
+              ],
+              "color": 5814783
+            }]
+          }
+          EOF
+          )"
