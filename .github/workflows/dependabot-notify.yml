@@ -1,0 +1,24 @@
+name: Notify on Dependabot PR
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  notify:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Discord
+        run: |
+          curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
+            -H "Content-Type: application/json" \
+            --data-raw '{
+              "embeds": [{
+                "title": "📦 Dependabot PR Created",
+                "description": "**${{ github.event.pull_request.title }}**",
+                "url": "${{ github.event.pull_request.html_url }}",
+                "color": 5814783
+              }]
+            }'

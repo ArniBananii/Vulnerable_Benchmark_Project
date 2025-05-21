@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "app/" # Adjust if requirements.txt is in a folder
+    schedule:
+      interval: "daily"
