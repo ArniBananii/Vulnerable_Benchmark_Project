@@ -4,3 +4,4 @@ requests
 numpy
 pandas
 PyJWT==1.7.1
+urllib3==1.25.0
