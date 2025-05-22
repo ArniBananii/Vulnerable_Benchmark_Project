@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: vuln-benchmark
-  namespace: argocd # Argo CD runs in this namespace
+  namespace: argocd
 spec:
   project: default
   source:
